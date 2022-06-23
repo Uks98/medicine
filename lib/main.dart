@@ -8,10 +8,11 @@ import 'package:medicine/services/notification.dart';
 final notification = DoryNotificationService();
 final hive = WHive();
 final medicineRepository = MedicineRepository();
+
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  await notification.initializeTimeZone();
+   notification.initializeTimeZone();
   await notification.initializeNotification();
 
   await hive.initializeHive();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       builder: (context,child) => MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor:1.0 ), child: child!),
       title: 'Flutter Demo',
       theme: DoryThemes.lightTheme,
