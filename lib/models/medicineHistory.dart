@@ -3,7 +3,7 @@
 
 import 'package:hive/hive.dart';
 
-part 'medicine_history.g.dart';
+part 'medicineHistory.g.dart';
 
 @HiveType(typeId: 2)
 class MedicineHistory extends HiveObject{

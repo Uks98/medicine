@@ -9,6 +9,7 @@ import 'package:medicine/components/widgets.dart';
 import 'package:medicine/main.dart';
 import 'package:medicine/models/medicine.dart';
 import 'package:medicine/pages/add/add_medicine.dart';
+import 'package:medicine/pages/bottomSheet/time_setting-bottomsheet.dart';
 import 'package:medicine/repositories/medicine.dart';
 import 'package:medicine/services/file_service.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -138,61 +139,13 @@ class AlarmBox extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         final initTime = DateFormat("HH:mm").parse(time);
-                        return BottomSheetBody(children: [
-                          SizedBox(
-                            child: CupertinoDatePicker(
-                              onDateTimeChanged: (dateTime) {
-                                _setDateTime = dateTime;
-                              },
-                              mode: CupertinoDatePickerMode.time,
-                              initialDateTime: initTime,
-                            ),
-                            height: 200,
-                          ),
-                          const SizedBox(
-                            height: regularSpace,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: SizedBox(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.white,
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1,
-                                        onPrimary: DoryColors.primaryColor),
-                                    onPressed: () =>
-                                        Navigator.of(context).pop(),
-                                    child: const Text("취소"),
-                                  ),
-                                  height: 50,
-                                ),
-                              ),
-                              const SizedBox(width: smallSpace),
-                              Expanded(
-                                child: SizedBox(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1),
-                                    onPressed: () {
-                                      service.setAlarm(
-                                          prevTime: time,
-                                          setTime: _setDateTime ?? initTime);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("선택"),
-                                  ),
-                                  height: 50,
-                                ),
-                              ),
-                            ],
-                          )
-                        ]);
-                      });
+                        return TimeSettingBottomSheet(
+                          initialTime: time,
+                        );
+                      }).then((value) {
+                    if (value == null || value is! DateTime) return;
+                    service.setAlarm(prevTime: time, setTime: value);
+                  });
                 },
                 child: Text(time)))
       ],
