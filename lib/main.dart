@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:medicine/components/themes.dart';
 import 'package:medicine/pages/home_page.dart';
 import 'package:medicine/repositories/hive.dart';
 import 'package:medicine/repositories/medicine.dart';
+import 'package:medicine/repositories/medicineHistoryRepository.dart';
 import 'package:medicine/services/notification.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 final notification = DoryNotificationService();
 final hive = WHive();
 final medicineRepository = MedicineRepository();
+final historyRepository = MedicineHistoryRepository();
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-   notification.initializeTimeZone();
-  await notification.initializeNotification();
+    notification.initializeTimeZone();
+    await notification.initializeNotification();
 
   await hive.initializeHive();
 

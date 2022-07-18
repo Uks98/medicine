@@ -35,7 +35,7 @@ class MedicineAdapter extends TypeAdapter<Medicine> {
       ..writeByte(3)
       ..write(obj.imagePath)
       ..writeByte(4)
-      ..write(obj.alarms.toList());
+      ..write(obj.alarms);
   }
 
   @override

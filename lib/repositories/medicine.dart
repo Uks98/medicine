@@ -38,7 +38,6 @@ class MedicineRepository {
   }
 
   int get newId {
-
     final lastId = medicineBox.values.isEmpty ? 0 : medicineBox.values.last.id; //빈 리스트에는 last 값이 없기때문에 상항연산자 처리
     return lastId + 1;
   }
